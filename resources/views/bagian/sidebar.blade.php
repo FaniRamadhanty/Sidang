@@ -1,4 +1,4 @@
-<aside class="main-sidebar sidebar-dark-primary elevation-4">
+{{-- <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
 
 
@@ -14,7 +14,7 @@
             <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
             <li class="nav-item menu-open">
-                <a href="/admin/" class="nav-link active">
+                <a href="#" class="nav-link active">
                     <i class="nav-icon filter-square"></i>
                     <p>
                         Penjualan Alat Olahraga
@@ -23,6 +23,12 @@
                 </a>
                 <ul class="nav nav-treeview">
 
+                    <li class="nav-item">
+                        <a href="/admin/awal" class="nav-link ">
+                            <i class=""></i>
+                            <p>Dashboard</p>
+                        </a>
+                    </li>
                     <li class="nav-item">
                         <a href="/admin/barang" class="nav-link ">
                             <i class=""></i>
@@ -44,4 +50,4 @@
                 </ul>
             </li>
 
-</aside>
+</aside> --}}

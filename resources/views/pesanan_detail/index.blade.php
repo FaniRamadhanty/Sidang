@@ -1,15 +1,11 @@
-@extends('admin')
+@extends('adminlte::page')
 
-@section('header')
-    <div class="content-header">
-        <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-12">
-                    <h1 class="m-0">Data Pesanan Detail</h1>
-                </div>
-            </div>
-        </div>
-    </div>
+@section('title', 'Dashboard')
+
+@section('content_header')
+
+Dashboard 
+
 @endsection
 
 @section('content')
@@ -26,7 +22,8 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table">
+                            <table class="table" id="pesanan_detail">
+                            <thead>
                                 <tr>
                                     <th>Nomor</th>
                                     <th>Barang</th>
@@ -35,7 +32,9 @@
                                     <th>Jumlah Harga</th>
                                     {{-- <th>Aksi</th> --}}
                                 </tr>
+                                </thead>
                                 @php $no=1; @endphp
+                                <tbody>
                                 @foreach ($pesanan_detail as $data)
                                     <tr>
                                         <td>{{ $no++ }}</td>
@@ -58,6 +57,7 @@
                                         </td> --}} 
                                     </tr>
                                 @endforeach
+                                <tbody>
                             </table>
                         </div>
                     </div>
@@ -65,4 +65,41 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('css')
+    <link rel="stylesheet" href="{{ asset('DataTables/datatables.min.css') }}">
+@endsection
+
+
+@section('js')
+    <script src="{{ asset('DataTables/datatables.min.js') }}"></script>
+    <script src="{{ asset('js/sweetalert2.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            $('#pesanan_detail').DataTable();
+        });
+    </script>
+    {{-- <script>
+        $(".delete-confirm").click(function(event) {
+            var form = $(this).closest("form");
+            var name = $(this).data("name");
+            event.preventDefault();
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            });
+        });
+    </script> --}}
+
+
 @endsection

@@ -7,6 +7,8 @@ use App\Http\Controllers\PesananController;
 use App\Http\Controllers\PesanController;
 use App\Http\Controllers\PesananDetailController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\KategoriController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -36,9 +38,20 @@ Route::get('profile', [ProfileController::class, 'index']);
 Route::post('profile', [ProfileController::class, 'update']);
 Route::get('history', [HistoryController::class, 'index']);
 Route::get('history/{id}', [HistoryController::class, 'detail']);
+Route::get('kategori', [KategoriController::class, 'index'])->name('kategori');
+Route::get('kategori/create', [KategoriController::class, 'create'])->name('kategori.create');
+
+
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:admin']],
     function () {
+      Route::get('/', [DashboardController::class, 'index']);
+
+//    Route::get('/kategori', function () {
+//             return view('kategori.index');
+//         })->middleware(['role:admin']);
+//         Route::resource('kategori', Controller::class);
+
         Route::get('/barang', function () {
             return view('barang.index');
         })->middleware(['role:admin']);

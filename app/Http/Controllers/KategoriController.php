@@ -14,7 +14,8 @@ class KategoriController extends Controller
      */
     public function index()
     {
-        //
+         $kategori = Kategori::all();
+        return view('kategori.index', compact(''));
     }
 
     /**
@@ -24,7 +25,8 @@ class KategoriController extends Controller
      */
     public function create()
     {
-        //
+        return view('kategori.create');
+
     }
 
     /**
@@ -35,7 +37,28 @@ class KategoriController extends Controller
      */
     public function store(Request $request)
     {
-        //
+         $request->validate([
+            'nama_kategori' => 'required',
+            'banner' => 'required|image|max:2048',
+            'status' => 'required',
+        ]);
+
+        
+        $kategori = new Kategori;
+        $kategori->nama_kategori = $request->nama_kategori;
+// upload image / foto
+        // upload image / foto
+        if ($request->hasFile('banner')) {
+            $image = $request->file('banner');
+            $name = rand(1000, 9999) . $image->getClientOriginalName();
+            $image->move('image/kategori/', $name);
+            $kategori->banner = $name;
+        }
+        $kategori->status = $request->status;
+        $kategori->save();
+        return redirect()->route('kategori.index' , compact('kategori'));
+
+    
     }
 
     /**
@@ -44,7 +67,7 @@ class KategoriController extends Controller
      * @param  \App\Models\Kategori  $kategori
      * @return \Illuminate\Http\Response
      */
-    public function show(Kategori $kategori)
+    public function show($id)
     {
         //
     }
@@ -55,9 +78,12 @@ class KategoriController extends Controller
      * @param  \App\Models\Kategori  $kategori
      * @return \Illuminate\Http\Response
      */
-    public function edit(Kategori $kategori)
+    public function edit($id)
     {
-        //
+         $kategori = Kategori::findOrFail($id);
+        
+        return view('kategori.edit')->with(compact('kategori'));
+
     }
 
     /**
@@ -67,9 +93,29 @@ class KategoriController extends Controller
      * @param  \App\Models\Kategori  $kategori
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Kategori $kategori)
+    public function update(Request $request,$id)
     {
-        //
+         $request->validate([
+            'nama_kategori' => 'required',
+            'status' => 'required',
+        ]);
+
+        $kategori = Kategori::findOrFail($id);
+        $kategori->nama_kategori = $request->nama_kategori;
+// upload image / foto
+        if ($request->hasFile('banner')) {
+            $kategori->deleteImage();
+            $image = $request->file('banner');
+            $name = rand(1000, 9999) . $image->getClientOriginalName();
+            $image->move('image/kategori/', $name);
+            $kategori->banner = $name;
+        }
+        $kategori->status = $request->status;
+        $kategori->save();
+        Alert::success('Success', 'Data edit successfully');
+
+        return redirect()->route('kategori.index');
+
     }
 
     /**
@@ -78,8 +124,14 @@ class KategoriController extends Controller
      * @param  \App\Models\Kategori  $kategori
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Kategori $kategori)
+    public function destroy( $id)
     {
-        //
+        
+        if (!Kategori::destroy($id)) {
+            return redirect()->back();
+        }
+        Alert::success('Success', 'Data deleted successfully');
+        return redirect()->route('kategori.index');
+
     }
 }

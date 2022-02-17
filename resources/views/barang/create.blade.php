@@ -1,4 +1,12 @@
-@extends('admin')
+@extends('adminlte::page')
+
+@section('title', 'Dashboard')
+
+@section('content_header')
+
+    Dashboard
+
+@endsection
 @section('header')
     <div class="content-header">
         <div class="container-fluid">
@@ -59,8 +67,8 @@
                             </div>
                             <div class="form-group">
                                 <label for="">Keterangan</label>
-                                <input type="text" name="keterangan"
-                                    class="form-control @error('keterangan') is-invalid @enderror">
+                                <textarea id="keterangan" class="form-control" name="keterangan" rows="10" cols="50"
+                                    @error('keterangan') is-invalid @enderror></textarea>
                                 @error('keterangan')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -77,4 +85,42 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('css')
+
+@endsection
+
+
+@section('js')
+    <script src="{{ asset('js/sweetalert2.js') }}"></script>
+    <script>
+        $(".delete-confirm").click(function(event) {
+            var form = $(this).closest("form");
+            var name = $(this).data("name");
+            event.preventDefault();
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            });
+        });
+    </script>
+
+    <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
+    <script>
+        var konten = document.getElementById("keterangan");
+        CKEDITOR.replace(konten, {
+            language: 'en-gb'
+        });
+        CKEDITOR.config.allowedContent = true;
+    </script>
 @endsection

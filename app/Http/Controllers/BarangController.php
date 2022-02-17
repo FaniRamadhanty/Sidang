@@ -16,6 +16,7 @@ class BarangController extends Controller
     public function index()
     {
         $barangs = Barang::all();
+       
         return view('barang.index', compact('barangs'));
 
     }
@@ -86,6 +87,7 @@ class BarangController extends Controller
     public function edit($id)
     {
         $barangs = Barang::findOrFail($id);
+        
         return view('barang.edit')->with(compact('barangs'));
 
     }
@@ -147,3 +149,4 @@ class BarangController extends Controller
 
     }
 }
+

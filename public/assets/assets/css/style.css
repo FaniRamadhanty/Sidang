@@ -315,13 +315,13 @@ h6 {
 # Hero Section
 --------------------------------------------------------------*/
 #hero {
-    width: 100%;
-    height: 90vh;
-    background: url(../img/fitnes.jpg) center center;
-    background-size: cover;
-    position: relative;
-    margin-top: -26px;
-    padding: 0;
+  width: 100%;
+  height: 100vh;
+  background: url(../img/fitnes.jpg) center center;
+  background-size: cover;
+  position: relative;
+  margin-top: -25px;
+  padding: 0;
 }
 #hero:before {
   content: "";
@@ -743,14 +743,14 @@ section {
   background: #fff;
   text-align: center;
   padding: 30px;
-  height: 115px;
-  border-radius: 0 0 0px 0px;
+  height: 90px;
+  border-radius: 0 0 3px 3px;
 }
 .portfolio .portfolio-item .portfolio-info h4 {
-  font-size: 22px;
+  font-size: 18px;
   line-height: 1px;
   font-weight: 700;
-  margin-bottom: 11px;
+  margin-bottom: 18px;
   padding-bottom: 0;
 }
 .portfolio .portfolio-item .portfolio-info h4 a {
